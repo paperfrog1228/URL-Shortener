@@ -16,6 +16,14 @@
             </button>
         </form>
     </div>
+    <div>
+        <div th:each="shorten:${shortenList}">
+            <div>
+              <a th:text="${shorten.originalURL}"></a>
+              <a th:text="${shorten.address}"></a>
+            </div>
+        </div>
+    </div>
     <!--콘텐츠 끝-->
 </section>
 </body>

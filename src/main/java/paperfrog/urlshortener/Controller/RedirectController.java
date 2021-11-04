@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class RedirectController {
     @GetMapping("/naver")
     public String RedirectToNaver(){
-        return "redirect:http://naver.com";
+        return "redirect:home";
     }
     @GetMapping("/{domain}")
     public String RedirectToPathVariable(@PathVariable String domain){
-        if(domain.equals("home"))
-            return "redirect:home";
+        if(domain.equals("home")||domain.equals(""))
+            return "redirect::/home";
         return "redirect:http://"+domain;
     }
 
-    @GetMapping("/")
+    @GetMapping(value = {"","/"})
     public String RedirectToHome(){
-        return "redirect:home";
+        return "redirect:/home";
     }
 }
