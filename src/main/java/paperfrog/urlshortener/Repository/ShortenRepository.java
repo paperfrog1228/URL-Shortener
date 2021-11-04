@@ -25,4 +25,7 @@ public class ShortenRepository {
             list.add(item);
         return list;
     }
+    public Shorten findByShortenAddress(String shortenAddress){
+        return shortenURLToShorten.get(shortenAddress);
+    }
 }
