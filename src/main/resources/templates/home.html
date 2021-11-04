@@ -3,6 +3,11 @@
 <meta charset="utf-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="/js/URL.js"></script>
 <section class="w-50 mx-auto " style="min-height: 800px;">
     <style>
         .field-error {
@@ -11,35 +16,56 @@
         }
     </style>
 
-    <th:block th:if="${#strings.length(msg)!=0}">
-        <script>
-            top.alert("유효하지 않은 링크 입니다.");
-            top.location.href='/';
-        </script>
-    </th:block>
-        <!--콘텐츠 시작-->
-        <div th:text="${#strings.length(msg)}">
-
-            강형석 지원자의 URL Short
-        </div>
+    <!--    <th:block th:if="${#strings.length(msg)!=0}">-->
+    <!--        <script>-->
+    <!--            top.alert("유효하지 않은 링크 입니다.");-->
+    <!--            top.location.href = '/';-->
+    <!--        </script>-->
+    <!--    </th:block>-->
+    <!--콘텐츠 시작-->
+    <h1 class="text-warning text-center">
+        URL Shorteren
+    </h1>
+    <div id="URLTable">
         <div>
-            <form th:action="@{/home/url}" th:object="${URL}" method="post">
-                <input type="text" class="form-control" th:field="*{address}"/>
-                <div class="field-error" th:errors="*{address}">URL 에러</div>
-                <button type="submit" class="btn btn-primary">
-                    URL 줄이기!
-                </button>
+            <form method="POST" th:object="${URL}">
+                <div class="row">
+                    <div class="col-10">
+                        <input type="text" class="form-control" th:field="*{address}"/>
+                    </div>
+                    <div class="col">
+                        <input type="button" class="btn btn-success" onclick="urlDataSend()" value="URL 변환">
+                    </div>
+                </div>
+                <th:block th:if="${#strings.length(error)!=0}">
+                    <p class="field-error" th:text="${error}"></p>
+                </th:block>
             </form>
+
         </div>
-        <div>
-            <div th:each="shorten:${shortenList}">
-                <div>
-                    <a th:text="${shorten.originalURL}"></a>
-                    <a th:text="${shorten.address}"></a>
+        <div th:if="${shorten}!=null">
+            <div class="border rounded border-warning p-5">
+<!--               <div class="d-flex">-->
+<!--                   <p>줄여진 URL : </p><a th:href="@{|localhost:8080|${shorten.address}}">-->
+<!--               </div>-->
+                <div class="">
+                    <p>원래 URL : </p><a th:href="@{${shorten.originalURL}}"></a>
+                    <p>원래 URL : </p><a th:href="@{http://drinkoftoday.shop}"></a>
                 </div>
             </div>
         </div>
-        <!--콘텐츠 끝-->
+        <div>
+            <p class="text-center">현재 등록되어 있는 URL</p>
+
+            <div th:each="shorten:${shortenList}">
+                <div>
+                    <a  th:href="@{|localhost8080/${shorten.originalURL}}"|>jj</a>
+                    <a  th:href="|localhost8080${shorten.address}|">nb</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--콘텐츠 끝-->
 </section>
 </body>
 </html>

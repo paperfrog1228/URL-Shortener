@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import paperfrog.urlshortener.Domain.*;
 import paperfrog.urlshortener.Repository.ShortenRepository;
 import paperfrog.urlshortener.Service.RegisterService;
@@ -25,20 +27,29 @@ public class RegisterURLController {
     public String home(Model model) {
         model.addAttribute("URL", new URLSaveForm());
         model.addAttribute("shortenList", shortenRepository.findAll());
-        model.addAttribute("msg", "");
+        model.addAttribute("error", "");
+        model.addAttribute("shorten",null);
         System.out.println("size : " + shortenRepository.findAll().size());
         return "/home";
     }
 
     @PostMapping("/url")
-    public String addUrl(@Valid @ModelAttribute("URL") URLSaveForm urlSaveForm,
+    public String addUrl(@Validated @ModelAttribute("URL") URLSaveForm urlSaveForm,
                          BindingResult bindingResult,
                          Model model) {
+        model.addAttribute("URL", new URLSaveForm());
+        model.addAttribute("error", "");
         if (bindingResult.hasErrors()) {
-            model.addAttribute("msg", "URL이 유효하지 않습니다!");
-            return "/home";
+            System.out.println("에러 잡고 잇는거 맞아..?");
+            model.addAttribute("error", "URL이 유효하지 않습니다!");
+            model.addAttribute("shortenList", shortenRepository.findAll());
+//            return "/home";
+            return "/home :: #URLTable";
         }
-        registerService.registerURL(urlSaveForm);
-        return "redirect:/home";
+
+        Shorten shorten=registerService.registerURL(urlSaveForm);
+        model.addAttribute("shortenList", shortenRepository.findAll());
+        model.addAttribute("shorten",shorten);
+        return "/home :: #URLTable";
     }
 }

@@ -11,15 +11,14 @@ import paperfrog.urlshortener.Repository.ShortenRepository;
 public class RegisterService {
     private final ShortenRepository shortenRepository;
     private final ServerTimeManager serverTimeManager;
-    public String registerURL(URLSaveForm urlSaveForm){
+    public Shorten registerURL(URLSaveForm urlSaveForm){
         Shorten shortenURL=new Shorten();
 
         String shortenAddress=serverTimeManager.getAddressByNanoTime();
 
         shortenURL.setOriginalURL(urlSaveForm.getAddress());
         shortenURL.setAddress(shortenAddress);
-        shortenRepository.save(shortenURL);
-        return shortenAddress;
+        return shortenRepository.save(shortenURL);
     }
 
 }
