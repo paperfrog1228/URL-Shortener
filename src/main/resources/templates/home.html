@@ -23,9 +23,12 @@
     <!--        </script>-->
     <!--    </th:block>-->
     <!--콘텐츠 시작-->
-    <h1 class="text-warning text-center">
+    <h1 class="text-warning text-center mt-3">
         URL Shorteren
     </h1>
+    <h6 class="text-secondary text-center ">
+        강형석&nbsp/&nbsppaperfrog@naver.com
+    </h6>
     <div id="URLTable">
         <div>
             <form method="POST" th:object="${URL}">
@@ -44,23 +47,28 @@
 
         </div>
         <div th:if="${shorten}!=null">
-            <div class="border rounded border-warning p-5">
-<!--               <div class="d-flex">-->
-<!--                   <p>줄여진 URL : </p><a th:href="@{|localhost:8080|${shorten.address}}">-->
-<!--               </div>-->
-                <div class="">
-                    <p>원래 URL : </p><a th:href="@{${shorten.originalURL}}"></a>
-                    <p>원래 URL : </p><a th:href="@{http://drinkoftoday.shop}"></a>
+            <div class="border rounded border-warning p-3 mt-3">
+                <div class="d-flex">
+                    <p class="h4">단축 URL :&nbsp</p><a class="h4" th:text="|http://localhost:8080/${shorten.address}|"
+                                                      th:href="@{|http://localhost:8080/${shorten.address}|}"></a>
+                </div>
+                <div class="d-flex">
+                    <p class="h4">원래 URL :&nbsp</p><a style="word-break: break-all" class="h4" th:text="${shorten.originalURL}"
+                                                      th:href="@{${shorten.originalURL}}"></a>
                 </div>
             </div>
         </div>
         <div>
-            <p class="text-center">현재 등록되어 있는 URL</p>
-
-            <div th:each="shorten:${shortenList}">
-                <div>
-                    <a  th:href="@{|localhost8080/${shorten.originalURL}}"|>jj</a>
-                    <a  th:href="|localhost8080${shorten.address}|">nb</a>
+            <p class="text-center h3 my-4">현재 등록되어 있는 URL</p>
+            <div th:each="shorten:${shortenList}" class="border rounded border-success">
+                <div class="row mt-1">
+                    <div class="col rounded border-warning m-1">
+                        <a style="word-break: break-all" th:text="${shorten.originalURL}" th:href="@{${shorten.originalURL}}"></a>
+                    </div>
+                    <div class="col rounded border-warning m-1">
+                        <a th:text="|http://localhost:8080/${shorten.address}|"
+                           th:href="@{|http://localhost:8080/${shorten.address}|}"></a>
+                    </div>
                 </div>
             </div>
         </div>

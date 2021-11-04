@@ -20,7 +20,7 @@ public class RedirectController {
         if(domain.equals("home")||domain.equals(""))
             return "redirect::/home";
         Shorten shorten=shortenRepository.findByShortenAddress(domain);
-        return "redirect:http://"+shorten.getOriginalURL();
+        return "redirect:"+shorten.getOriginalURL();
     }
 
     @GetMapping(value = {"","/"})

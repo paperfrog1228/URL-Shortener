@@ -1,7 +1,7 @@
 function urlDataSend() {
     var url= $("#address").val();
     if(!url.includes("http"))
-        url="http://"+url;
+        url="http:\/\/"+url;
     var data={
         address :url,
     };
