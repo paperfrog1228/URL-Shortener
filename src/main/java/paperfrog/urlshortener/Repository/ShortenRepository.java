@@ -14,10 +14,10 @@ import java.util.Map;
 public class ShortenRepository {
     private final HashMap<String, Shorten> URLToShorten;
     private final HashMap<String, Shorten> shortenURLToShorten;
-    public void save(Shorten shorten) {
+    public Shorten save(Shorten shorten) {
         URLToShorten.put(shorten.getOriginalURL(),shorten);
         shortenURLToShorten.put(shorten.getAddress(),shorten);
-
+        return shorten;
     }
     public List<Shorten> findAll(){
         List<Shorten> list=new ArrayList<>();
