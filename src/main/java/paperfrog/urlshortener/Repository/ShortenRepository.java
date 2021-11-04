@@ -28,4 +28,8 @@ public class ShortenRepository {
     public Shorten findByShortenAddress(String shortenAddress){
         return shortenURLToShorten.get(shortenAddress);
     }
+
+    public Shorten findByOriginalURL(String orignalURL) {
+        return URLToShorten.get(orignalURL);
+    }
 }

@@ -12,6 +12,10 @@ public class RegisterService {
     private final ShortenRepository shortenRepository;
     private final ServerTimeManager serverTimeManager;
     public Shorten registerURL(URLSaveForm urlSaveForm){
+        Shorten shorten=shortenRepository.findByOriginalURL(urlSaveForm.getAddress());
+        if(shorten!=null) {
+            return shorten;
+        }
         Shorten shortenURL=new Shorten();
 
         String shortenAddress=serverTimeManager.getAddressByNanoTime();
