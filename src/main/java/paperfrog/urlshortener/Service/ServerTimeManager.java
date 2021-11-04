@@ -14,7 +14,6 @@ public class ServerTimeManager {
      ***/
     public String getAddressByNanoTime(){
         Long time=System.nanoTime();
-        System.out.println("time : "+time);
         String address="";
         while(time>0){
             Long rem=time%64;
