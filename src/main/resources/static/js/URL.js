@@ -1,6 +1,9 @@
 function urlDataSend() {
+    var url= $("#address").val();
+    if(!url.includes("http"))
+        url="http://"+url;
     var data={
-        address : $("#address").val(),
+        address :url,
     };
     var messageDTO=data;
     $.ajax({

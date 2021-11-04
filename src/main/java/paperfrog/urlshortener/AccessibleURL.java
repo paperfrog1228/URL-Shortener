@@ -11,7 +11,8 @@ public class AccessibleURL implements ConstraintValidator<ValidURL, String> {
     @Override
     public boolean isValid(String urlString, ConstraintValidatorContext context) {
         URL url;
-        
+        System.out.println("url String : "+urlString);
+        if(!urlString.contains(".")) return false;
         HttpURLConnection connection=null;
         try {
             url = new URL(urlString);
@@ -21,7 +22,7 @@ public class AccessibleURL implements ConstraintValidator<ValidURL, String> {
         }
         connection =(HttpURLConnection) url.openConnection();
         System.out.println("응답 코드 : "+connection.getResponseCode());
-        if(connection.getResponseCode()==200)
+        if(connection.getResponseCode()!=HttpURLConnection.HTTP_NOT_FOUND)
             return true;
         return false;
     }
