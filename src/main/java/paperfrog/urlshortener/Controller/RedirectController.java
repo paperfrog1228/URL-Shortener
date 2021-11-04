@@ -12,6 +12,13 @@ public class RedirectController {
     }
     @GetMapping("/{domain}")
     public String RedirectToPathVariable(@PathVariable String domain){
+        if(domain.equals("home"))
+            return "redirect:home";
         return "redirect:http://"+domain;
+    }
+
+    @GetMapping("/")
+    public String RedirectToHome(){
+        return "redirect:home";
     }
 }
