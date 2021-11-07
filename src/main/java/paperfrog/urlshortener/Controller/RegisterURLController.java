@@ -40,7 +40,6 @@ public class RegisterURLController {
         model.addAttribute("URL", new URLSaveForm());
         model.addAttribute("error", "");
         if (bindingResult.hasErrors()) {
-            System.out.println("에러 잡고 잇는거 맞아..?");
             model.addAttribute("error", "URL이 유효하지 않습니다!");
             model.addAttribute("shortenList", shortenRepository.findAll());
 //            return "/home";
