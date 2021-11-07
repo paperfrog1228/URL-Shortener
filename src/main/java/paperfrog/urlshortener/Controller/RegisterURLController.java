@@ -30,7 +30,7 @@ public class RegisterURLController {
         model.addAttribute("error", "");
         model.addAttribute("shorten",null);
         System.out.println("size : " + shortenRepository.findAll().size());
-        return "/home";
+        return "home";
     }
 
     @PostMapping("/url")
@@ -43,12 +43,12 @@ public class RegisterURLController {
             model.addAttribute("error", "URL이 유효하지 않습니다!");
             model.addAttribute("shortenList", shortenRepository.findAll());
 //            return "/home";
-            return "/home :: #URLTable";
+            return "home :: #URLTable";
         }
 
         Shorten shorten=registerService.registerURL(urlSaveForm);
         model.addAttribute("shortenList", shortenRepository.findAll());
         model.addAttribute("shorten",shorten);
-        return "/home :: #URLTable";
+        return "home :: #URLTable";
     }
 }
