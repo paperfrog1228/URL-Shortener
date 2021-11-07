@@ -24,6 +24,7 @@ public class ServerTimeManager {
             else address+='@';
             time/=64;
         }
+        System.out.println("time : "+time+" url : "+address);
         return address;
     }
 }

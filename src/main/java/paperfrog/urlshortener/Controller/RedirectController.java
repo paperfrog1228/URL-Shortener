@@ -17,9 +17,12 @@ public class RedirectController {
     }
     @GetMapping("/{domain}")
     public String RedirectToPathVariable(@PathVariable String domain){
-        if(domain.equals("home")||domain.equals(""))
+        System.out.println("request url : "+domain);
+        if(domain.equals("home")||domain.equals("")||domain.equals("home/"))
             return "redirect::/home";
         Shorten shorten=shortenRepository.findByShortenAddress(domain);
+        if(shorten==null)
+            return "redirect::/home";
         return "redirect:"+shorten.getOriginalURL();
     }
 
