@@ -5,12 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import paperfrog.urlshortener.Domain.Shorten;
+import paperfrog.urlshortener.Repository.ShortenRedisRepository;
 import paperfrog.urlshortener.Repository.ShortenRepository;
+
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class RedirectController {
-    private final ShortenRepository shortenRepository;
+    private final ShortenRedisRepository shortenRedisRepository;
     @GetMapping("/naver")
     public String RedirectToNaver(){
         return "redirect:home";
@@ -20,10 +23,11 @@ public class RedirectController {
         System.out.println("request url : "+domain);
         if(domain.equals("home")||domain.equals("")||domain.equals("home/"))
             return "redirect::/home";
-        Shorten shorten=shortenRepository.findByShortenAddress(domain);
+        Optional<Shorten> shorten=shortenRedisRepository.findById(domain);
+        System.out.println("이 시팔 1 :"+shorten.get().getOriginalURL());
         if(shorten==null)
             return "redirect::/home";
-        return "redirect:"+shorten.getOriginalURL();
+        return "redirect:"+shorten.get().getOriginalURL();
     }
 
     @GetMapping(value = {"","/"})
