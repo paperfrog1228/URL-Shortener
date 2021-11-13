@@ -2,7 +2,7 @@
 ## 목차
 * [프로젝트 소개](#프로젝트-소개)
 * [주요 기능](#주요-기능)
-* [프로젝트 환경](#프로젝트-환)
+* [프로젝트 환경](#프로젝트-환경)
 # 프로젝트 소개
 ## 프로젝트 링크
 ### http://smgs.tk
@@ -12,7 +12,6 @@ http://15.164.83.29:8082/home
 ## URL-Shortener
 > 특정 url을 입력 시 고정된 짧은 길이의 url로 변환 해주는 사이트입니다.
 
-![소개](https://user-images.githubusercontent.com/11247319/140642678-82e7bc00-6ca5-44ea-8be5-ade1f3517660.gif)
 ![urlshortener](https://user-images.githubusercontent.com/11247319/140647304-2d473847-02ac-445d-b480-8da153a68400.jpg)
 
 
@@ -67,8 +66,13 @@ http://15.164.83.29:8082/home
     }
 ```
 # 프로젝트 환경
+## 서버 구조
+![redis](https://user-images.githubusercontent.com/11247319/141649616-5165b85e-4d9c-4df6-bc57-e9c282c5da6a.jpg)
+원래 DB를 구축할 예정이 없었으나 서버 메모리에 무한히 저장 시 생기는 문제점과 <br>친구들의 궂은 장난으로 이상한 사이트 저장 시 서버를 재기동하기 귀찮아 DB를 사용했다.
+<br>
+서버 메모리의 빠른 엑세스 기능은 계속해서 활용하기 위해 DB 캐싱이 가능한 Redis를 사용하였다.
+
 ## 개발 환경
->이번 프로젝트의 특징으로는 DB를 사용하지 않았다는 것이다.
 ```
 Spring boot : 2.5.3
 Java : 11(jar)
@@ -77,6 +81,7 @@ Dependencies : SpringWeb, Lombok, thymeleaf,
 HTML,css library : bootstrap 5.0.2
 CD : Jenkins
 Cloud : AWS EC2 (micro)
+DB : Redis
 ```
 
 # 향후 추가 할 기능
@@ -85,3 +90,4 @@ Cloud : AWS EC2 (micro)
 
 ## 기능 관련
 - DB를 사용하지 않을 것이기에 끝없이 메모리에 URL을 저장 할 수는 없다. 그렇기 때문에 저장된 URL이 특정 시간이 지나면 삭제가 되는 기능을 추가할 것이다.
+-> Redis 추가와 Redis의 TTL 기능으로 해결하였다.
