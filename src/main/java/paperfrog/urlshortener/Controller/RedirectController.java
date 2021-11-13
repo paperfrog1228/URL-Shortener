@@ -24,7 +24,6 @@ public class RedirectController {
         if(domain.equals("home")||domain.equals("")||domain.equals("home/"))
             return "redirect::/home";
         Optional<Shorten> shorten=shortenRedisRepository.findById(domain);
-        System.out.println("이 시팔 1 :"+shorten.get().getOriginalURL());
         if(shorten==null)
             return "redirect::/home";
         return "redirect:"+shorten.get().getOriginalURL();
